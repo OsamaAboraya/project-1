@@ -13,9 +13,9 @@ Prerequisites:
 
 3-Command line tool(visual studio terminal)
 
-4-Terraform
+4-Terraform(terraform.exe)
 
-5- terraform.exe
+
 
 
 
@@ -32,6 +32,11 @@ Prerequisites:
 
 
 4-go to your browser and navigate to public-id (3) 
+
+
+
+
+
 
 
 
