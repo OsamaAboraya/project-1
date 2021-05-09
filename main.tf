@@ -11,12 +11,18 @@ provider "aws" {
 resource "aws_vpc" "vpc1" {
   cidr_block       = "10.88.0.0/16"
 
+   tags = {
+    Name = "vpc1-terraform"
+  }
+
   
 }
 resource "aws_subnet" "subnet1" {
   vpc_id     = aws_vpc.vpc1.id
   cidr_block = "10.88.1.0/24"
- 
+ tags = {
+    Name = "subnet-public-terraform"
+  }
   
 }
 
@@ -25,7 +31,9 @@ resource "aws_subnet" "subnet2" {
   cidr_block = "10.88.2.0/24"
   
 
-  
+ tags = {
+    Name = "subnet-private-terraform"
+  } 
 }
 
 
@@ -46,13 +54,16 @@ resource "aws_instance" "ter2" {
     sudo docker pull mysql
     sudo docker run -itd -e MYSQL_ROOT_PASSWORD=wordpress -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wordpress -e MYSQL_PASSWORD=wordpress -p 3306:3306 mysql 
   EOF
+  tags = {
+    Name = "instance-private-terraform"
+  }
 }
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.vpc1.id
 
   tags = {
-    Name = "internet_gateway"
+    Name = "internet_gateway-terraform"
   }
 }
 resource "aws_eip" "lb" {
@@ -64,7 +75,9 @@ resource "aws_eip" "lb" {
 resource "aws_nat_gateway" "ngw" {
   allocation_id = aws_eip.lb.id
   subnet_id = aws_subnet.subnet1.id
-  
+  tags = {
+    Name = "nat-gateway-terraform"
+  }
 }
 
 resource "aws_route_table" "routetable1" {
@@ -78,7 +91,7 @@ resource "aws_route_table" "routetable1" {
   
 
   tags = {
-    Name = "routetable1"
+    Name = "routetable-terrafom"
   }
 }
 resource "aws_route_table_association" "a" {
@@ -97,7 +110,7 @@ resource "aws_route_table" "routetable2" {
   
 
   tags = {
-    Name = "routetable2"
+    Name = "routetable-terraform-2"
   }
 }
 resource "aws_route_table_association" "b" {
@@ -187,7 +200,10 @@ resource "aws_instance" "ter1" {
   ami           = "ami-00399ec92321828f5"
   instance_type = "t2.micro"
   key_name = "key"
-  
+  tags = {
+    Name = "instance-public-terraform"
+  }
+
   network_interface {
     network_interface_id = aws_network_interface.ter1.id
     device_index = 0
