@@ -1,7 +1,7 @@
 
 # terraform
 
-<h3>Using terraform to create aws that running wordpress </h3>
+<h3>Using terraform to create vpc-aws that running wordpress </h3>
 
 
 
